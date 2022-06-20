@@ -1,9 +1,4 @@
-# Author: Christian McVerry
-# Course: CS 361
-# Instructor: Lara Letaw
-# Date: 11/09/2021
-# Description: microservice that can be used to extract utf-8 encoded summaries (text before article sections) for any Wikipedia article.
-
+# last update: 06/20/2022
 
 from json.decoder import JSONDecodeError
 import socket 
