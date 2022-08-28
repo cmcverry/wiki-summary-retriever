@@ -1,8 +1,7 @@
-# last update: 06/20/2022
+# last update: 08/28/2022
 
-from json.decoder import JSONDecodeError
-import socket 
 import json
+import socket 
 import requests
 
 
@@ -11,7 +10,7 @@ def checkJSON(request):
     try:
         json.loads(request)
         return True
-    except(TypeError, OverflowError, JSONDecodeError):
+    except(TypeError, OverflowError, json.JSONDecodeError):
         return False
 
 
@@ -37,7 +36,6 @@ def runServer():
         while 1:
             # initializes variables and payload dict
             validRequest = False
-            intro = False
             title = ""
             urlComponent = "/wiki/"
             payload = {"title":"", "summary":""}
@@ -69,20 +67,19 @@ def runServer():
                     # /wiki/ not found in url string; bad url
                     if strIndex == -1:
                         break
+
                     #extracts Wikipedia article title from url
                     title = url[(strIndex + len(urlComponent)):]
-
-                if key == 'summary' and parsedRequest[key] == 'true':
-                    intro = True
             
             # If parsed request is valid, fills payload dict and makes a post request to MediaWiki API 
-            if title and intro:
+            if title:
                 payload["title"] = title
                 apiUrl = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts&titles="+title+"&exintro=&explaintext=&format=json"
                 httpPostReq = requests.post(apiUrl, headers = {"Content-Type": "application/json; charset=utf-8"})
 
                 #Receives data from MediaWiki API
                 wikiData = json.loads(httpPostReq.content)
+                print(wikiData)
                 # print(wikiData)
                 # print(type(wikiData))
                 
@@ -110,8 +107,6 @@ def runServer():
                     break
                 else:
                     response = json.dumps(payload)
-                    # print(response)
-
                     conn.send(response.encode("utf-8"))
 
             else:

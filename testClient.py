@@ -8,13 +8,12 @@ def runClient():
     c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     c.connect((host, port))
 
-    message = {"url":"https://en.wikipedia.org/wiki/New_York_(state)", "summary":"true"}
+    message = {"url":"https://en.wikipedia.org/wiki/New_York_(state)"}
     request = json.dumps(message)
 
     c.send(request.encode("utf-8"))
     response = c.recv(8196).decode("utf-8")
 
-    print(response)
     parsedResponse = json.loads(response)
     print(parsedResponse)
 
