@@ -1,6 +1,6 @@
 # Wikipedia Summary Retriever 
 
-This program is a small microservice TCP server socket that accepts requests from TCP client sockets that contain a URL of any existing Wikipedia article and returns the UTF-8 encoded summary section of the respective article. 
+This program is a small microservice TCP server socket that accepts requests from TCP client sockets that contain a URL of any existing Wikipedia article and returns a UTF-8 encoded summary section of the respective article. 
 
 ## Instructions
 
